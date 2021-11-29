@@ -29,6 +29,7 @@ class Post(db.Model):
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     content = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    adoption_info = db.Column(db.Text, nullable=False)
 
     def __repr__(self):
         return f"Post('{self.name}', '{self.age}', '{self.gender}', '{self.date_posted}')"

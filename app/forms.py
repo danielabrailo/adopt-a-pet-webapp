@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, IntegerField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from app.models import User
 
@@ -52,5 +52,11 @@ class UpdateAccountForm(FlaskForm):
             if user:
                 raise ValidationError('That email is taken. Please choose a different one.')
 
-# class PostForm(FlaskForm):
-#     title =
+
+class PostForm(FlaskForm):
+    name = StringField('Name of the pet', validators=[DataRequired()])
+    age = IntegerField('Age', validators=[DataRequired()])
+    gender = StringField('Gender', validators=[DataRequired()])
+    content = TextAreaField('Description, personality, etc.', validators=[DataRequired()])
+    adoption_info = TextAreaField('How can people contact you? Email, phone number?', validators=[DataRequired()])
+    submit = SubmitField('Post')
