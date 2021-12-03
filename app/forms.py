@@ -58,5 +58,6 @@ class PostForm(FlaskForm):
     age = IntegerField('Age', validators=[DataRequired()])
     gender = StringField('Gender', validators=[DataRequired()])
     content = TextAreaField('Description, personality, etc.', validators=[DataRequired()])
+    pictures = FileField('Upload pictures', validators=[FileAllowed(['jpg', 'png'])])
     adoption_info = TextAreaField('How can people contact you? Email, phone number?', validators=[DataRequired()])
-    submit = SubmitField('Post')
+    submit = SubmitField('Done')

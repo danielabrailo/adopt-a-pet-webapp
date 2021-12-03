@@ -1,7 +1,7 @@
 import secrets
 import os
 from PIL import Image
-from flask import render_template, url_for, flash, redirect, request
+from flask import render_template, url_for, flash, redirect, request, abort
 from app import app, db, bcrypt
 from app.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm
 from app.models import User, Post
@@ -64,6 +64,18 @@ def save_picture(form_picture):
     return picture_fn
 
 
+def save_pet_picture(form_picture):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(app.root_path, 'static/pictures', picture_fn)
+    output_size = (125, 125)
+    i = Image.open(form_picture)
+    i.thumbnail(output_size)
+    i.save(picture_path)
+    return picture_fn
+
+
 @app.route('/account', methods=['GET', 'POST'])
 @login_required
 def account():
@@ -87,10 +99,44 @@ def account():
 def new_post():
     form = PostForm()
     if form.validate_on_submit():
-        post = Post(name=form.name.data, age=form.age.data, gender=form.gender.data, content=form.content.data, adoption_info=form.adoption_info.data, author=current_user)
+        post = Post(name=form.name.data, age=form.age.data, gender=form.gender.data, content=form.content.data,
+                    user=current_user, adoption_info=form.adoption_info.data)
+        if form.pictures.data:
+            pet_pics = save_pet_picture(form.pictures.data)
+            post.pictures = pet_pics
         db.session.add(post)
         db.session.commit()
         flash('Your post has been created successfully', 'success')
         return redirect(url_for('main'))
-    return render_template('create_post.html', title='New Post', form=form)
+    return render_template('create_post.html', title='New Post', form=form, legend='New Post')
 
+
+@app.route('/post/<int:post_id>')
+def post(post_id):
+    post = Post.query.get_or_404(post_id)
+    return render_template('post.html', title=post.name, post=post)
+
+
+@app.route('/post/<int:post_id>/update', methods=['GET', 'POST'])
+@login_required
+def update_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    if post.user != current_user:
+        abort(403)
+    form = PostForm()
+    if form.validate_on_submit():
+        post.name = form.name.data
+        post.age = form.age.data
+        post.gender = form.gender.data
+        post.content = form.content.data
+        post.adoption_info = form.adoption_info.data
+        db.session.commit()
+        flash('Your post has been updated', 'success')
+        return redirect(url_for('post', post_id=post.id))
+    elif request.method == 'GET':
+        form.name.data = post.name
+        form.age.data = post.age
+        form.gender.data = post.gender
+        form.content.data = post.content
+        form.adoption_info.data = post.adoption_info
+    return render_template('create_post.html', title='Update Post', form=form, legend='Update Post')
