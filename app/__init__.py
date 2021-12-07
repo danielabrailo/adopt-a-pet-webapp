@@ -27,12 +27,12 @@ def create_app(config_class=Config):
     from app.users.routes import users
     from app.posts.routes import posts
     from app.main.routes import main
+    from app.errors.handlers import errors
     app.register_blueprint(users)
     app.register_blueprint(posts)
     app.register_blueprint(main)
+    app.register_blueprint(errors)
 
     return app
 
 
-# smtplib.SMTPSenderRefused
-# smtplib.SMTPSenderRefused: (530, b'5.7.0 Authentication Required. Learn more at\n5.7.0  https://support.google.com/mail/?p=WantAuthError y6sm13917192wma.37 - gsmtp', 'adoptapetinisrael@gmail.com')
