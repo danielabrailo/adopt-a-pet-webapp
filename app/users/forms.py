@@ -53,16 +53,6 @@ class UpdateAccountForm(FlaskForm):
                 raise ValidationError('That email is taken. Please choose a different one.')
 
 
-class PostForm(FlaskForm):
-    name = StringField('Name of the pet', validators=[DataRequired()])
-    age = IntegerField('Age', validators=[DataRequired()])
-    gender = StringField('Gender', validators=[DataRequired()])
-    content = TextAreaField('Description, personality, etc.', validators=[DataRequired()])
-    pictures = FileField('Upload pictures', validators=[FileAllowed(['jpg', 'png'])])
-    adoption_info = TextAreaField('How can people contact you? Email, phone number?', validators=[DataRequired()])
-    submit = SubmitField('Done')
-
-
 class RequestResetForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     submit = SubmitField('Request Password Reset')
