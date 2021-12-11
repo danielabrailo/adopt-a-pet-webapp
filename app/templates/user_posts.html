@@ -9,9 +9,9 @@
               <a class="mr-2" href="{{ url_for('users.user_posts', username=post.user.username) }}">{{ post.user.username}}</a>
               <small class="text-muted">{{ post.date_posted.strftime('%d/%m/%Y') }}</small>
             </div>
-            <h1 class="article-title">{{ post['name'] }}</h1>
-            <h2 class="article-title">{{ post['age'] }}</h2>
-            <p class="article-content">{{ post['gender'] }}</p>
+            <h2><a class="article-title" href="{{ url_for('posts.post', post_id=post.id) }}">Name: {{ post['name']}}</a></h2>
+            <p class="article-content">Age: {{ post['age'] }}</p>
+            <p class="article-content">Gender: {{ post['gender'] }}</p>
             <img class="rounded-circle article-img" src="{{ url_for('static', filename='pictures/' + post.pictures) }}" alt="pets">
           </div>
         </article>
