@@ -1,38 +1,31 @@
 from flask import Flask
+import os
 import flask_sqlalchemy
 import flask_migrate
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
-from app.config import Config
 
-db = flask_sqlalchemy.SQLAlchemy()
-migrate = flask_migrate.Migrate()
-bcrypt = Bcrypt()
-login_manager = LoginManager()
-login_manager.login_view = 'users.login'
+basedir = os.path.abspath(os.path.dirname(__file__))
+
+app = Flask(__name__)
+app.config['SECRET_KEY'] = '8f463f37daf12dc40a0b120d857a2644'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'app.db')
+db = flask_sqlalchemy.SQLAlchemy(app)
+migrate = flask_migrate.Migrate(app, db)
+bcrypt = Bcrypt(app)
+login_manager = LoginManager(app)
+login_manager.login_view = 'login'
 login_manager.login_message_category = 'info'
-mail = Mail()
 
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = 'adoptapetinisrael@gmail.com'
+app.config['MAIL_PASSWORD'] = 'kfvevuworvkcxsjh'
+mail = Mail(app)
 
-def create_app(config_class=Config):
-    app = Flask(__name__)
-    app.config.from_object(Config)
+from app import routes
 
-    db.init_app(app)
-    bcrypt.init_app(app)
-    login_manager.init_app(app)
-    mail.init_app(app)
-
-    from app.users.routes import users
-    from app.posts.routes import posts
-    from app.main.routes import main
-    from app.errors.handlers import errors
-    app.register_blueprint(users)
-    app.register_blueprint(posts)
-    app.register_blueprint(main)
-    app.register_blueprint(errors)
-
-    return app
 
 
