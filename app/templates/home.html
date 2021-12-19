@@ -10,6 +10,11 @@
               <a class="mr-2" href="{{ url_for('user_posts', username=post.user.username) }}"> By {{ post.user.username}}</a>
               <small class="text-muted">{{ post.date_posted.strftime('%d/%m/%Y') }}</small>
             </div>
+              <div>
+                  <span class="tag">{{ post.pet_tag }}</span>
+                  <span class="tag">Age gap: {{ post.age_tag}}</span>
+                  <span class="tag">{{ post.gender}}</span>
+              </div>
             <h2><a class="article-title" href="{{ url_for('post', post_id=post.id) }}">Name: {{ post['name']}}</a></h2>
             <p class="article-content"> Age: {{ post['age'] }}</p>
             <p class="article-content">Gender: {{ post['gender'] }}</p>

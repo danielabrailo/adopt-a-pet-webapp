@@ -132,6 +132,8 @@ def update_post(post_id):
         post.gender = form.gender.data
         post.content = form.content.data
         post.adoption_info = form.adoption_info.data
+        post.pet_tag = form.pet_tag.data
+        post.age_tag = form.age_tag.data
         db.session.commit()
         flash('Your post has been updated', 'success')
         return redirect(url_for('post', post_id=post.id))
