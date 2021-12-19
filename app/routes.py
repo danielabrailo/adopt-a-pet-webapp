@@ -102,12 +102,12 @@ def new_post():
     form = PostForm()
     if form.validate_on_submit():
         post = Post(name=form.name.data, age=form.age.data, gender=form.gender.data, content=form.content.data,
-                    user=current_user, adoption_info=form.adoption_info.data, pet_tag=[form.pet_tag.data])
+                    user=current_user, adoption_info=form.adoption_info.data, pet_tag=form.pet_tag.data, age_tag=form.age_tag.data)
+        db.session.add(post)
+        db.session.commit()
         if form.pictures.data:
             pet_pics = save_pet_picture(form.pictures.data)
             post.pictures = pet_pics
-        db.session.add(post)
-        db.session.commit()
         flash('Your post has been created successfully', 'success')
         return redirect(url_for('home'))
     return render_template('create_post.html', title='New Post', form=form, legend='New Post')

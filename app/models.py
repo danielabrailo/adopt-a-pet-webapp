@@ -39,13 +39,14 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20), nullable=False)
     age = db.Column(db.Integer, nullable=False)
-    gender = db.Column(db.String(7), nullable=False)
+    gender = db.Column(db.String(10), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     content = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     pictures = db.Column(db.String(20), nullable=False, default='default.jpg')
     adoption_info = db.Column(db.Text, nullable=False)
     pet_tag = db.Column(db.String(5), nullable=False)
+    age_tag = db.Column(db.String(5), nullable=False)
 
     def __repr__(self):
         return f"Post('{self.name}', '{self.age}', '{self.gender}', '{self.date_posted}')"
