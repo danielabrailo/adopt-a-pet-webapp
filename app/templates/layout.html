@@ -18,7 +18,7 @@
       <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
         <div class="container">
           <a class="navbar-brand navbar-logo mr-4" href="/">Adopt a Pet</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
@@ -60,8 +60,8 @@
             <h3>Dog or cat?</h3>
             <p class='text-muted'> Are you looking to adopt a dog or a cat?
               <ul class="list-group">
-                <li class="list-group-item list-group-item-light">Dogs</li>
-                <li class="list-group-item list-group-item-light">Cats</li>
+                <a class="list-group-item" href="{{ url_for('home_cats') }}">Cats</a>
+                <a class="list-group-item" href="{{ url_for('home_dogs') }}">Dogs</a>
               </ul>
             </p>
           </div>

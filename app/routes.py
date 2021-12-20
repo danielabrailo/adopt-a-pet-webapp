@@ -17,6 +17,20 @@ def home():
     return render_template('home.html', posts=posts, title='Homepage')
 
 
+@app.route('/home/cats')
+def home_cats():
+    page = request.args.get('page', 1, type=int)
+    posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
+    return render_template('home_cats.html', posts=posts, title='Cats')
+
+
+@app.route('/home/dogs')
+def home_dogs():
+    page = request.args.get('page', 1, type=int)
+    posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
+    return render_template('home_dogs.html', posts=posts, title='Dogs')
+
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
@@ -101,13 +115,17 @@ def account():
 def new_post():
     form = PostForm()
     if form.validate_on_submit():
-        post = Post(name=form.name.data, age=form.age.data, gender=form.gender.data, content=form.content.data,
-                    user=current_user, adoption_info=form.adoption_info.data, pet_tag=form.pet_tag.data, age_tag=form.age_tag.data)
-        db.session.add(post)
-        db.session.commit()
+        pet_pics = ''
         if form.pictures.data:
             pet_pics = save_pet_picture(form.pictures.data)
-            post.pictures = pet_pics
+        post = Post(name=form.name.data, age=form.age.data, gender=form.gender.data, content=form.content.data,
+                    user=current_user, adoption_info=form.adoption_info.data, pet_tag=form.pet_tag.data,
+                    age_tag=form.age_tag.data, pictures=pet_pics)
+        db.session.add(post)
+        db.session.commit()
+        # if form.pictures.data:
+        #     pet_pics = save_pet_picture(form.pictures.data)
+        #     post.pictures = pet_pics
         flash('Your post has been created successfully', 'success')
         return redirect(url_for('home'))
     return render_template('create_post.html', title='New Post', form=form, legend='New Post')
@@ -127,6 +145,9 @@ def update_post(post_id):
         abort(403)
     form = PostForm()
     if form.validate_on_submit():
+        if form.pictures.data:
+            picture_file = save_pet_picture(form.pictures.data)
+            post.pictures = picture_file
         post.name = form.name.data
         post.age = form.age.data
         post.gender = form.gender.data

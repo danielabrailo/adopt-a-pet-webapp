@@ -95,4 +95,18 @@ a.article-title:hover {
     background-color: #efdb76;
 }
 
+.tag {
+    background-color: #efdb76;
+    color: black;
+    padding: 5px;
+}
+
+.list-group-item {
+    background-color: #efdb76;
+    color: black;
+    padding: 5px;
+    margin: 5px;
+    width: 50%;
+}
+
 

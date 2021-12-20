@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<h1>WELCOME TO ADOPT A PET IN ISRAEL!</h1>
+<h3>Find the pet you are looking for:</h3>
+    {% for post in posts.items %}
+        {% if post.pet_tag == 'Cat' %}
+             <article class="media content-section">
+              <div class="media-body">
+                <div class="article-metadata">
+                  <a class="mr-2" href="{{ url_for('user_posts', username=post.user.username) }}"> By {{ post.user.username}}</a>
+                  <small class="text-muted">{{ post.date_posted.strftime('%d/%m/%Y') }}</small>
+                </div>
+                  <div>
+                      <span class="tag">{{ post.pet_tag }}</span>
+                      <span class="tag">Age gap: {{ post.age_tag}}</span>
+                      <span class="tag">{{ post.gender}}</span>
+                  </div>
+                <h2><a class="article-title" href="{{ url_for('post', post_id=post.id) }}">Name: {{ post['name']}}</a></h2>
+                <p class="article-content"> Age: {{ post['age'] }}</p>
+                <p class="article-content">Gender: {{ post['gender'] }}</p>
+                <img class="rounded-circle article-img" src="{{ url_for('static', filename='pictures/' + post.pictures) }}" alt="pets">
+              </div>
+            </article>
+            {% endif %}
+      {% endfor %}
+    {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+        {% if page_num %}
+            {% if posts.page == page_num %}
+                <a class="btn btn-outline-dark mb-4" href="{{ url_for('home', page=page_num) }}">{{ page_num }}</a>
+            {% else %}
+                <a class="btn btn-outline-warning mb-4" href="{{ url_for('home', page=page_num) }}">{{ page_num }}</a>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+{% endblock content %}
