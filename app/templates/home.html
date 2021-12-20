@@ -2,7 +2,7 @@
 
 {% block content %}
 <h1>WELCOME TO ADOPT A PET IN ISRAEL!</h1>
-<h3>Find the pet you are looking for:</h3>
+<h3 class="special-font">Find the pet you are looking for:</h3>
     {% for post in posts.items %}
          <article class="media content-section">
           <div class="media-body">
@@ -15,6 +15,7 @@
                   <span class="tag">Age gap: {{ post.age_tag}}</span>
                   <span class="tag">{{ post.gender}}</span>
               </div>
+              <br>
             <h2><a class="article-title" href="{{ url_for('post', post_id=post.id) }}">Name: {{ post['name']}}</a></h2>
             <p class="article-content"> Age: {{ post['age'] }}</p>
             <p class="article-content">Gender: {{ post['gender'] }}</p>
