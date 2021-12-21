@@ -11,7 +11,7 @@ class PostForm(FlaskForm):
     age = IntegerField('Age', validators=[DataRequired()])
     gender = SelectField(u'Gender', choices=['Female', 'Male'])
     content = TextAreaField('Description, personality, etc.', validators=[DataRequired()])
-    pictures = FileField('Upload pictures', validators=[FileAllowed(['jpg', 'png'])])
+    pictures = FileField('Upload picture', validators=[FileAllowed(['jpg', 'png'])])
     adoption_info = TextAreaField('How can people contact you? Email, phone number?', validators=[DataRequired()])
     pet_tag = SelectField(u'Pet', choices=['Cat', 'Dog'])
     age_tag = SelectField(u'Age gap', choices=['<1', '1-3', '3-5', '>5'])
