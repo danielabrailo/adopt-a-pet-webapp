@@ -1,7 +1,11 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-         <article class="media content-section">
+         <article class="media content-section parent">
+            <div>
+                <img class="rounded-circle article-img-post" src="{{ url_for('static', filename='pictures/' + post.pictures) }}" alt="pets">
+            </div>
+
           <div class="media-body">
             <div class="article-metadata">
               <a class="mr-2" href="{{ url_for('user_posts', username=post.user.username) }}">By {{ post.user.username }}</a>
@@ -23,7 +27,7 @@
             <p class="article-content">Gender: {{ post['gender'] }}</p>
             <p>{{ post['content'] }}</p>
             <p>Want to adopt me? <br>{{ post['adoption_info'] }}</p>
-            <img class="rounded-circle article-img-post" src="{{ url_for('static', filename='pictures/' + post.pictures) }}" alt="pets">
+
           </div>
         </article>
 

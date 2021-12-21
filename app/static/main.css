@@ -62,6 +62,8 @@ a.article-title:hover {
 }
 
 .article-img-post {
+  display: block;
+  margin: 20%;
   height: 200px;
   width: 180px;
   margin-right: 16px;
@@ -126,4 +128,21 @@ a.article-title:hover {
     width: 50%;
 }
 
+.parent {
+    display: grid;
+    grid-template-columns: minmax(100px, 40%) 1fr;
+    }
 
+@media screen and (max-width: 480px) {
+    .parent {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .parent > div {
+      width: 100%;
+      margin: 10px;
+      text-align: center;
+}
+}
