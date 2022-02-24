@@ -4,4 +4,4 @@ An adoption web portal where people that are fostering cats and/or dogs can post
 
 Built using **Flask**
 
-![demo-gif](https://github.com/danielabrailo/adopt-a-pet-webapp/blob/da7f67d3bda23ea32c984f7e3b579d7730740d0e/app/Adop%20A%20Pet-Final%20Project.gif)
+![demo-gif](https://github.com/danielabrailo/adopt-a-pet-webapp/blob/511c8b004e0cf8a68ece6164fdedecc3432d4183/app/Adopt%20a%20Pet%20-%20%20Final%20Project.gif)
