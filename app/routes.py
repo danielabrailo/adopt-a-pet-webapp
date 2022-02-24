@@ -20,14 +20,14 @@ def home():
 @app.route('/home/cats')
 def home_cats():
     page = request.args.get('page', 1, type=int)
-    posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
+    posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=10)
     return render_template('home_cats.html', posts=posts, title='Cats')
 
 
 @app.route('/home/dogs')
 def home_dogs():
     page = request.args.get('page', 1, type=int)
-    posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=5)
+    posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page, per_page=10)
     return render_template('home_dogs.html', posts=posts, title='Dogs')
 
 
