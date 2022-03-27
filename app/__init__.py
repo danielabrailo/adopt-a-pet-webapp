@@ -22,7 +22,7 @@ app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USERNAME'] = 'adoptapetinisrael@gmail.com'
-app.config['MAIL_PASSWORD'] = 'kfvevuworvkcxsjh'
+app.config['MAIL_PASSWORD'] = 'kfvevuworvxsjh'
 mail = Mail(app)
 
 from app import routes
